@@ -9,13 +9,13 @@ class Submarino
   def walk(string)
     case string
     when 'u'
-      @y -= 2
+      @y -= 0.1
     when 'd'
-      @y += 2
+      @y += 0.1
     when 'l'
-      @x -= 2
+      @x -= 0.1
     when 'r'
-      @x += 2
+      @x += 0.1
     end
   end
 
