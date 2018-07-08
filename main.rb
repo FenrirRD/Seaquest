@@ -19,7 +19,7 @@ set title: 'Submarino'
 set width: 800, height: 600
 set background: 'blue'
 
-submarino = Submarino.new(x: 362.5, y: 270)
+submarino = Submarino.new(x: 362.5, y: 270,path: 'assets/submarino.png')
 peixe = []
 mergulhador = []
 
@@ -36,9 +36,9 @@ update do
 
   m = rand(2)
   if(m == 1)
-    mergulhador << Mergulhador.new(x: (0), y: rand(600), l: m) if (rand(1000) % 666).zero?
+    mergulhador << Mergulhador.new(x: (0), y: rand(600), l: m) if (rand(1000) % 566).zero?
   else
-    mergulhador << Mergulhador.new(x: (740), y: rand(600), l: m) if (rand(1000) % 666).zero?
+    mergulhador << Mergulhador.new(x: (740), y: rand(600), l: m) if (rand(1000) % 566).zero?
   end
 
   peixe.each(&:draw)
@@ -46,23 +46,28 @@ update do
 
   peixe.each(&:mov)
   mergulhador.each(&:mov)
-#  pointer = Driver::readDriver
-#  @pointer
-#  puts pointer.read_string
-#  submarino.walk(pointer.read_string)
+  #  pointer = Driver::readDriver
+  #  @pointer
+  #  puts pointer.read_string
+  #  submarino.walk(pointer.read_string)
 
   peixe.delete_if { |b| submarino.hasPeixe(b) }
 #  peixe.delete_if { |b| peixe.delet(b)}
   mergulhador.delete_if { |b| submarino.hasMergulhador(b) }
 #  mergulhador.delete_if { |b| mergulhador.delet(b)}
+end
 
-  on :key_down do |event|
-    close if event.key == 'escape'
-    submarino.walk('u') if event.key == 'w' || event.key == 'up'
-    submarino.walk('d') if event.key == 's' || event.key == 'down'
-    submarino.walk('l') if event.key == 'a' || event.key == 'left'
-    submarino.walk('r') if event.key == 'd' || event.key == 'right'
-  end
+on :key_down do |event|
+  close if event.key == 'escape'
+end
+on :key_held do |event|
+  submarino.walk('u') if event.key == 'w' || event.key == 'up'
+  submarino.walk('d') if event.key == 's' || event.key == 'down'
+  submarino.walk('l') if event.key == 'a' || event.key == 'left'
+  submarino.walk('r') if event.key == 'd' || event.key == 'right'
+end
+on :key_up do |event|
+
 end
 
 show
