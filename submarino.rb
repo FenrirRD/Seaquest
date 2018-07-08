@@ -1,26 +1,37 @@
 class Submarino
-  attr_accessor :x, :y
+  attr_accessor :x, :y, :path
 
-  def initialize(x:, y:)
+  def initialize(x:, y:, path:)
     @x = x
     @y = y
+    @path = 'assets/submarino.png'
   end
 
   def walk(string)
+    @path  = 'assets/submarino1.png' if string == 'r'
+    @path  = 'assets/submarino.png' if string == 'l'
     case string
     when 'u'
-      @y -= 0.1
+      puts @y
+      @y -= 5 if @y > 100
     when 'd'
-      @y += 0.1
+      #puts @y
+      @y += 5 if @y < 540
+      #puts @y
     when 'l'
-      @x -= 0.1
+      #puts @y
+      @x -= 5 if @x > 5
+      #puts @y
     when 'r'
-      @x += 0.1
+      #puts @y
+      @x += 5 if @x < 730
+      #puts @y
     end
   end
 
   def draw
-    submarino = Image.new(x: @x, y: @y, path: 'assets/submarino.png', z: 2)
+    submarino = Image.new(x: @x, y: @y, path: @path, z: 2)
+
     submarino.width = 75
     submarino.height = 60
 
@@ -30,28 +41,50 @@ class Submarino
   def hasPeixe(peixe)
     right = @x + 75
     left = @x
-    up = @y
-    down = @y + 60
+    up = @y + 10
+    down = @y + 70
 
-    if (left >= peixe.x && left <= peixe.x + 60)
-      if (up >= peixe.y && up <= peixe.y + 40)
+    #mesma coluna e x perto
+    if (peixe.x >= left && (peixe.x + 60) <= right)
+      if (peixe.y <= down && (peixe.y + 40) >= down)
         return true
       end
 
-      if (down >= peixe.y && down <= peixe.y + 40)
+      if (peixe.y <= up && (peixe.y + 40) >= up)
+        return true
+      end
+    end
+    # mesma linha e y perto
+    if (peixe.y >= up && (peixe.y + 40) <= down)
+      if (peixe.x <= left && (peixe.x + 60) >= left)
+        return true
+      end
+
+      if (peixe.x <= right && (peixe.x + 60) >= right)
+        return true
+      end
+    end
+    #canto superior direito
+    if (peixe.y <= up && (peixe.y + 40) >= up)
+      if (peixe.x <= left && (peixe.x + 60) >= left)
+        return true
+      end
+
+      if (peixe.x <= right && (peixe.x + 60) >= right)
+        return true
+      end
+    end
+    #mesma coluna e x perto
+    if (peixe.x >= left && (peixe.x + 60) <= right)
+      if (peixe.y <= down && (peixe.y + 40) >= down)
+        return true
+      end
+
+      if (peixe.y <= up && (peixe.y + 40) >= up)
         return true
       end
     end
 
-    if (right >= peixe.x && right <= peixe.x + 60)
-      if (up >= peixe.y && up <= peixe.y + 40)
-        return true
-      end
-
-      if (down >= peixe.y && down <= peixe.y + 40)
-        return true
-      end
-    end
     if (peixe.x >= 810 || peixe.x <= -10)
       return true
     end
