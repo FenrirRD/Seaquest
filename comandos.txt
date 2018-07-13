@@ -1,0 +1,6 @@
+//gerar biblioteca .so
+sudo gcc -fPIC -shared acesso.c -o acesso.so
+
+sudo rmmod drive.ko
+make
+sudo insmod driver.ko

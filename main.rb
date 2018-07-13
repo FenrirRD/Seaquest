@@ -7,12 +7,12 @@ require_relative 'submarino'
 require_relative 'peixe'
 require_relative 'mergulhador'
 
-#module Driver
-#  extend FFI::Library
+module Driver
+  extend FFI::Library
 
-#  ffi_lib 'driver/acesso.so'
-#  attach_function :readDriver, [], :pointer
-#end
+  ffi_lib 'driver/acesso.so'
+  attach_function :readDriver, [], :char
+end
 
 # config window
 set title: 'Submarino'
@@ -44,6 +44,10 @@ update do
   peixe.each(&:draw)
   mergulhador.each(&:draw)
 
+  pointer = Driver.readDriver
+  puts pointer
+  submarino.walk(pointer)
+
   peixe.each(&:mov)
   mergulhador.each(&:mov)
   #  pointer = Driver::readDriver
@@ -60,14 +64,15 @@ end
 on :key_down do |event|
   close if event.key == 'escape'
 end
-on :key_held do |event|
-  submarino.walk('u') if event.key == 'w' || event.key == 'up'
-  submarino.walk('d') if event.key == 's' || event.key == 'down'
-  submarino.walk('l') if event.key == 'a' || event.key == 'left'
-  submarino.walk('r') if event.key == 'd' || event.key == 'right'
-end
-on :key_up do |event|
 
-end
+#on :key_held do |event|
+#  submarino.walk('u') if event.key == 'w' || event.key == 'up'
+#  submarino.walk('d') if event.key == 's' || event.key == 'down'
+#  submarino.walk('l') if event.key == 'a' || event.key == 'left'
+#  submarino.walk('r') if event.key == 'd' || event.key == 'right'
+#end
+#on :key_up do |event|
+#
+#end
 
 show
