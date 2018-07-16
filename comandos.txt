@@ -1,6 +1,9 @@
 //gerar biblioteca .so
 sudo gcc -fPIC -shared acesso.c -o acesso.so
+//log de arquivos
+sudo tail -f /var/log/syslog
 
+//modulo drive
 sudo rmmod drive.ko
 make
 sudo insmod driver.ko

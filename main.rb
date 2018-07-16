@@ -11,7 +11,7 @@ module Driver
   extend FFI::Library
 
   ffi_lib 'driver/acesso.so'
-  attach_function :readDriver, [], :char
+  attach_function :readDriver, [], :pointer
 end
 
 # config window

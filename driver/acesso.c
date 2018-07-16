@@ -18,10 +18,10 @@ int writeDriver(char word[BUF_MSG])
   return 1;
 }
 
-char readDriver()
+char* readDriver()
 {
   int file;
-  char word = '0';//= (char) malloc(BUF_MSG);
+  char word = (char) malloc(BUF_MSG);
   file = open(DEVICE_NAME, O_RDONLY);
 
   if (file > 0) {

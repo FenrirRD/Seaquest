@@ -45,8 +45,8 @@ int device_init()
 		//printk("Erro ao carregar o dispositivo %d\n.",DEVICE);
 		return ret;
 	}
-
-	//printk("O dispositivo %d foi carregado.\n", DEVICE);
+	message[0] = 'x';
+	printk("O dispositivo %d foi carregado.\n", DEVICE);
 
 	return 0;
 }
@@ -101,42 +101,43 @@ static int device_release(struct inode *inode, struct file *file)
 		return bytes_read;
 	}
 }*/
-static ssize_t device_read(struct file *file, char __user * buffer, size_t length, loff_t * offset){
+static ssize_t device_read(struct file *file, char __user * buffer, size_t length, loff_t * offset)
+{
+
 	int i;
 	int bytes_read = 0;
-	if(ins_read)
+	if (*ptr == 0 || message[0] == 'x')
 	{
-		if (*ptr == 0){
-			return 0;
-		}
-		while (bytes_read < 1) {
-
-			put_user(*(ptr++), buffer++);
-			length--;
-			bytes_read++;
-		}
-		//message[0] = 'I';
-		//printk("Leu o Caracter: %c", message[0]);
+		return 0;
 	}
+	while (bytes_read < 1)
+	{
+		put_user(*(ptr++), buffer++);
+		length--;
+		bytes_read++;
+	}
+	printk("Leu o Caracter: %c", message[0]);
+	message[0] = 'x';
+
 	return bytes_read;
 }
 /*----------------------------------------------------------------------------*/
-static ssize_t device_write(struct file *file, const char __user * buffer, size_t length, loff_t * offset){
+static ssize_t device_write(struct file *file, const char __user * buffer, size_t length, loff_t * offset)
+{
 
-	if(!ins_read)
+	if(message[0] != 'x')
 	{
-		ins_read = 1;
-		int i;
-
-		for (i = 0; i < length && i < BUF_MSG; i++)
-		{
-			get_user(message[i], buffer + i);
-		}
-
-		//printk("Escreveu a mensagem: %s\n", message);
-
-		ptr = message;
-
-		return i;
+		return 0;
 	}
+	int i=0;
+
+	for (i = 0; i < 1; i++)
+	{
+		get_user(message[i], buffer + i);
+	}
+	printk("Escreveu o caracter: %c\n",message[0]);
+
+	ptr = message;
+
+	return i;
 }

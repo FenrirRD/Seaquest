@@ -8,8 +8,8 @@ class Submarino
   end
 
   def walk(string)
-    @path  = 'assets/submarino1.png' if string == 'r'
-    @path  = 'assets/submarino.png' if string == 'l'
+    #@path  = 'assets/submarino1.png' if string[0] == 'r'
+    #@path  = 'assets/submarino.png' if string[0] == 'l'
     case string
     when 'u'
       @y -= 5 if @y > 100
