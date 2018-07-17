@@ -79,28 +79,6 @@ static int device_release(struct inode *inode, struct file *file)
 }
 
 /*----------------------------------------------------------------------------*/
-/*static ssize_t device_read(struct file *file, char __user * buffer, size_t length, loff_t * offset){
-	if(ins_read)
-	{
-		ins_read = 0;
-		int bytes_read = 0;
-
-		if (*ptr == 0)
-		{
-			return 0;
-		}
-
-		while (length && *ptr)
-		{
-			put_user(*(ptr++), buffer++);
-			length--;
-			bytes_read++;
-		}
-		//printk("Leu %d bytes correspondendo a mensagem: %s\n", bytes_read, message);
-
-		return bytes_read;
-	}
-}*/
 static ssize_t device_read(struct file *file, char __user * buffer, size_t length, loff_t * offset)
 {
 
@@ -116,7 +94,7 @@ static ssize_t device_read(struct file *file, char __user * buffer, size_t lengt
 		length--;
 		bytes_read++;
 	}
-	printk("Leu o Caracter: %c", message[0]);
+	//printk("Leu o Caracter: %c", message[0]);
 	message[0] = 'x';
 
 	return bytes_read;
@@ -135,7 +113,7 @@ static ssize_t device_write(struct file *file, const char __user * buffer, size_
 	{
 		get_user(message[i], buffer + i);
 	}
-	printk("Escreveu o caracter: %c\n",message[0]);
+	//printk("Escreveu o caracter: %c\n",message[0]);
 
 	ptr = message;
 

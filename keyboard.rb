@@ -17,7 +17,7 @@ su = Triangle.new(x1: 100, y1: 15, x2: 70, y2: 60, x3: 130, y3: 60, color: 'red'
 sr = Triangle.new(x1: 185, y1: 100, x2: 140, y2: 70, x3: 140, y3: 130, color: 'red')
 sd = Triangle.new(x1: 100, y1: 185, x2: 70, y2: 140, x3: 130, y3: 140, color: 'red')
 
-on :key_down do |event|
+on :key_held do |event|
   case event.key
   when 'up'
     su.color = 'blue'

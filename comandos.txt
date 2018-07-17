@@ -7,3 +7,7 @@ sudo tail -f /var/log/syslog
 sudo rmmod drive.ko
 make
 sudo insmod driver.ko
+
+//Arquivo submarino
+sudo mknod /dev/submarino c 60 0
+sudo chmod 666 /dev/submarino

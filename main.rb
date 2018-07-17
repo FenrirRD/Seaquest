@@ -11,7 +11,7 @@ module Driver
   extend FFI::Library
 
   ffi_lib 'driver/acesso.so'
-  attach_function :readDriver, [], :pointer
+  attach_function :readDriver, [], :char
 end
 
 # config window
@@ -45,9 +45,8 @@ update do
   mergulhador.each(&:draw)
 
   pointer = Driver.readDriver
-  puts pointer
-  submarino.walk(pointer)
-
+  puts pointer.chr
+  submarino.walk(pointer.chr)
   peixe.each(&:mov)
   mergulhador.each(&:mov)
   #  pointer = Driver::readDriver
