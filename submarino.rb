@@ -8,8 +8,8 @@ class Submarino
   end
 
   def walk(string)
-    #@path  = 'assets/submarino1.png' if string[0] == 'r'
-    #@path  = 'assets/submarino.png' if string[0] == 'l'
+    @path  = 'assets/submarino1.png' if string[0] == 'r'
+    @path  = 'assets/submarino.png' if string[0] == 'l'
     case string
     when 'u'
       @y -= 5 if @y > 100
@@ -20,6 +20,11 @@ class Submarino
     when 'r'
       @x += 5 if @x < 730
     end
+  end
+
+  def restart
+      @y = 100
+      @x = 360
   end
 
   def draw
@@ -40,45 +45,54 @@ class Submarino
     #mesma coluna e x perto
     if (peixe.x >= left && (peixe.x + 60) <= right)
       if (peixe.y <= down && (peixe.y + 40) >= down)
+        $i = 1
         return true
       end
 
       if (peixe.y <= up && (peixe.y + 40) >= up)
+        $i = 1
         return true
       end
     end
     # mesma linha e y perto
     if (peixe.y >= up && (peixe.y + 40) <= down)
       if (peixe.x <= left && (peixe.x + 60) >= left)
+        $i = 1
         return true
       end
 
       if (peixe.x <= right && (peixe.x + 60) >= right)
+        $i = 1
         return true
       end
     end
     #canto superior direito
     if (peixe.y <= up && (peixe.y + 40) >= up)
       if (peixe.x <= left && (peixe.x + 60) >= left)
+        $i = 1
         return true
       end
 
       if (peixe.x <= right && (peixe.x + 60) >= right)
+        $i = 1
         return true
       end
     end
     #mesma coluna e x perto
     if (peixe.x >= left && (peixe.x + 60) <= right)
       if (peixe.y <= down && (peixe.y + 40) >= down)
+        $i = 1
         return true
       end
 
       if (peixe.y <= up && (peixe.y + 40) >= up)
+        $i = 1
         return true
       end
     end
 
     if (peixe.x >= 810 || peixe.x <= -10)
+      puts "sim"
       return true
     end
   end
@@ -91,40 +105,48 @@ class Submarino
     #mesma coluna e x perto
     if (mergulhador.x >= left && (mergulhador.x + 60) <= right)
       if (mergulhador.y <= down && (mergulhador.y + 40) >= down)
+        $pontos += 100
         return true
       end
 
       if (mergulhador.y <= up && (mergulhador.y + 40) >= up)
+        $pontos += 100
         return true
       end
     end
     # mesma linha e y perto
     if (mergulhador.y >= up && (mergulhador.y + 40) <= down)
       if (mergulhador.x <= left && (mergulhador.x + 60) >= left)
+        $pontos += 100
         return true
       end
 
       if (mergulhador.x <= right && (mergulhador.x + 60) >= right)
+        $pontos += 100
         return true
       end
     end
     #canto superior direito
     if (mergulhador.y <= up && (mergulhador.y + 40) >= up)
       if (mergulhador.x <= left && (mergulhador.x + 60) >= left)
+        $pontos += 100
         return true
       end
 
       if (mergulhador.x <= right && (mergulhador.x + 60) >= right)
+        $pontos += 100
         return true
       end
     end
     #mesma coluna e x perto
     if (mergulhador.x >= left && (mergulhador.x + 60) <= right)
       if (mergulhador.y <= down && (mergulhador.y + 40) >= down)
+        $pontos += 100
         return true
       end
 
       if (mergulhador.y <= up && (mergulhador.y + 40) >= up)
+        $pontos += 100
         return true
       end
     end

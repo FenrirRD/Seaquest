@@ -2,7 +2,11 @@
 #include <linux/module.h>
 #include <linux/fs.h>
 #include <linux/uaccess.h>
-
+#include "driver.h"
+/*-----------------------------------------*/
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("RODRIGO_DALLAGNOL, FLAVIO DA SILVA");
+MODULE_DESCRIPTION("SUBMARINO");
 /*----------------------------------------------------------------------------*/
 #define DEVICE 60
 #define DEVICE_NAME "submarino"
@@ -15,7 +19,7 @@ static int device_open(struct inode *inode, struct file *file);
 static int device_release(struct inode *inode, struct file *file);
 static ssize_t device_read(struct file *file, char __user *buffer, size_t length,loff_t * offset);
 static ssize_t device_write(struct file *file, const char __user * buffer, size_t length, loff_t * offset);
-
+//long device_ioctl(struct file *file, unsigned int ioctl_num, unsigned long ioctl_param);
 /*----------------------------------------------------------------------------*/
 module_init(device_init);
 module_exit(devide_cleanup)
@@ -24,7 +28,7 @@ module_exit(devide_cleanup)
 static int is_open = 0;
 static char message[BUF_MSG];
 static char *ptr;
-static int ins_read = 0;
+//static int ins_read = 0;
 
 /*----------------------------------------------------------------------------*/
 struct file_operations fops = {
@@ -32,6 +36,7 @@ struct file_operations fops = {
 	.write = device_write,
 	.open = device_open,
 	.release = device_release,
+	//.unlocked_ioctl = device_ioctl
 };
 
 /*----------------------------------------------------------------------------*/
@@ -46,7 +51,7 @@ int device_init()
 		return ret;
 	}
 	message[0] = 'x';
-	printk("O dispositivo %d foi carregado.\n", DEVICE);
+	//printk("O dispositivo %d foi carregado.\n", DEVICE);
 
 	return 0;
 }
@@ -119,3 +124,21 @@ static ssize_t device_write(struct file *file, const char __user * buffer, size_
 
 	return i;
 }
+/*----------------------------------------------------------------------------*/
+//long device_ioctl(struct file *file, unsigned int ioctl_num, unsigned long ioctl_param){
+//	int length = 1;
+//	char *temp = NULL, ch;
+//	switch (ioctl_num) {
+//		case IOCTL_WRITE:
+//			device_write(file, (char *)ioctl_param, length, 0);
+//			break;
+//
+//		case IOCTL_READ:
+//			device_read(file, (char *)ioctl_param, length, 0);
+//			break;
+//		default:
+//			printk("Essa operacao nao e permitida.\n");
+//			return FAILURE;
+//	}
+//	return SUCCESS;
+//}

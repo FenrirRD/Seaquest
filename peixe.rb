@@ -26,7 +26,7 @@ class Peixe
       @x -= 5
     end
   end
-
+  
   def delet(peixe)
     if(@x < 0 || @x > 800)
       return true
